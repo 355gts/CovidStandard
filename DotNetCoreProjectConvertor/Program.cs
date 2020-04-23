@@ -49,7 +49,7 @@ namespace DotNetCoreProjectConvertor
             var result = migrationHelper.CreateSolution(solutionFile.Name.StripExtension());
 
             var projects = Directory.GetFiles(solutionRootPath, "*.csproj", SearchOption.AllDirectories)
-                                    .Where(p => !p.Contains("Template"));
+                                    .Where(p => !p.Contains("Template") && !p.Contains("ProjectConvertor"));
 
             foreach (var project in projects)
             {

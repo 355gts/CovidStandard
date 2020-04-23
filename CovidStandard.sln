@@ -21,11 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid.Service.Common", "Cov
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid.Web.Model", "Covid.Web.Model\Covid.Web.Model\Covid.Web.Model.csproj", "{813ECC5A-CBF7-4099-9141-9A5ED5BCFB06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid.UserService", "Covid.UserService\Covid.UserService.csproj", "{225142BF-B002-4598-8467-EBED1104B490}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid.Api", "Covid.Api\Covid.Api\Covid.Api.csproj", "{07F1FF9C-61D5-41B6-A660-02592C701045}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreProjectConvertor", "DotNetCoreProjectConvertor\DotNetCoreProjectConvertor.csproj", "{94E56160-92DF-4DBB-8448-599E27EDCB5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid.UserService", "Covid.UserService\Covid.UserService\Covid.UserService.csproj", "{225142BF-B002-4598-8467-EBED1104B490}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +69,6 @@ Global
 		{813ECC5A-CBF7-4099-9141-9A5ED5BCFB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{813ECC5A-CBF7-4099-9141-9A5ED5BCFB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{813ECC5A-CBF7-4099-9141-9A5ED5BCFB06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{225142BF-B002-4598-8467-EBED1104B490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{225142BF-B002-4598-8467-EBED1104B490}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{225142BF-B002-4598-8467-EBED1104B490}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{225142BF-B002-4598-8467-EBED1104B490}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07F1FF9C-61D5-41B6-A660-02592C701045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07F1FF9C-61D5-41B6-A660-02592C701045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07F1FF9C-61D5-41B6-A660-02592C701045}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,6 +77,10 @@ Global
 		{94E56160-92DF-4DBB-8448-599E27EDCB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94E56160-92DF-4DBB-8448-599E27EDCB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94E56160-92DF-4DBB-8448-599E27EDCB5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{225142BF-B002-4598-8467-EBED1104B490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{225142BF-B002-4598-8467-EBED1104B490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{225142BF-B002-4598-8467-EBED1104B490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{225142BF-B002-4598-8467-EBED1104B490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

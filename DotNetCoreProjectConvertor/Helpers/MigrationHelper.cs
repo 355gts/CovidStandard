@@ -47,7 +47,7 @@ namespace DotNetCoreProjectConvertor.Helpers
             try
             {
                 var projectFiles = Directory.GetFiles(existingProjectPath, "*.*", SearchOption.AllDirectories)
-                    .Where(p => !p.Contains(@"\bin") && !p.Contains(@"\obj") && !p.Contains(@"AssemblyInfo") && !p.Contains(@"Configuration") && !p.Contains(@"ProjectConvertor"))
+                    .Where(p => !p.Contains(@"\bin") && !p.Contains(@"\obj") && !p.Contains(@"AssemblyInfo"))
                     .Where(p => _fileTypes.Contains(p.Split('.').Last()));
 
                 foreach (var file in projectFiles)
