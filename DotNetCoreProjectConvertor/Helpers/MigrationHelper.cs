@@ -1,6 +1,7 @@
 ﻿using Covid.Common.HttpClientHelper.Configuration;
 using Covid.Rabbit.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -108,8 +109,18 @@ namespace DotNetCoreProjectConvertor.Helpers
                         string appSettingsJson = JsonConvert.SerializeObject(new
                         {
                             queueConfiguration = queueConfig,
-                            services = serviceConfig.Services
-                        }, new JsonSerializerSettings() { Formatting = Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
+                            services = serviceConfig.Services,
+                            appSettings = MigrateAppSettings(solutionName, existingProjectPath, projectName),
+                        }, new JsonSerializerSettings()
+                        {
+                            StringEscapeHandling = StringEscapeHandling.Default,
+                            Formatting = Formatting.Indented,
+                            NullValueHandling = NullValueHandling.Ignore,
+                            ContractResolver = new DefaultContractResolver
+                            {
+                                NamingStrategy = new CamelCaseNamingStrategy()
+                            },
+                        });
 
                         var appSettingsPath = $"{Path.Combine(_outputDirectory, projectName, projectName)}\\{configFile.Value}";
                         using (TextWriter tw = new StreamWriter(appSettingsPath, false))
@@ -125,6 +136,74 @@ namespace DotNetCoreProjectConvertor.Helpers
                 return false;
             }
             return true;
+
+        }
+
+        public object MigrateAppSettings(string solutionName, string existingProjectPath, string projectName)
+        {
+            try
+            {
+                // TODO: use Release built configs to migrate environment specific configs settings across
+                var configFiles = projectName.ToLower().Contains(".api")
+                    ? new List<KeyValuePair<string, string>>()
+                    {
+                        new KeyValuePair<string, string>("web.Config" , "appsettings.json"),
+                        //new KeyValuePair<string, string>("web.Release.Config" , "appsettings.Release.json")
+                    }
+                    : new List<KeyValuePair<string, string>>()
+                    {
+                        new KeyValuePair<string, string>("app.Config" , "appsettings.json"),
+                        //new KeyValuePair<string, string>("app.Release.Config" , "appsettings.Release.json")
+                    };
+
+                foreach (var configFile in configFiles)
+                {
+                    var configFileName = $"{Path.Combine(existingProjectPath)}\\{configFile.Key}";
+                    if (!File.Exists(configFileName))
+                        return null;
+
+                    XDocument existingCsProjXml = XDocument.Load(configFileName);
+
+                    var appSettings = existingCsProjXml.Descendants("configuration").Descendants("applicationSettings")
+                                                         .Descendants().Where(x => x.Name.ToString().EndsWith("Settings"))
+                                                         .Select(x => x.Descendants()).ToList();
+
+                    List<KeyValuePair<string, string>> keyValues = new List<KeyValuePair<string, string>>();
+
+                    foreach (var appSettingSection in appSettings)
+                    {
+                        var settings = (appSettingSection.Select(s => s).ToList())
+                                                   .Where(s => s.Attribute("name") != null)
+                                                   .Select(s => new KeyValuePair<string, string>(s.Attribute("name")?.Value, s.Attribute("serializeAs").Value == "Xml" ? $"[{string.Join(",",s.Value)}]" : s.Value));
+
+                        keyValues.AddRange(settings);
+
+                        //var settings = (appSettingSection.Select(s => s).ToList())
+                        //                           .Where(s => s.Attribute("name") != null)
+                        //                           .Select(s => $"\"{s.Attribute("name")?.Value}\": \"{s.Value}\"");
+
+                    }
+
+                    var settingsJson = JsonConvert.DeserializeObject("{" + string.Join(",", keyValues.Select(s => $"\"{s.Key}\": \"{s.Value}\"")) + "}", new JsonSerializerSettings()
+                    {
+                        StringEscapeHandling = StringEscapeHandling.Default,
+                        Formatting = Formatting.Indented,
+                        NullValueHandling = NullValueHandling.Ignore,
+                        ContractResolver = new DefaultContractResolver
+                        {
+                            NamingStrategy = new CamelCaseNamingStrategy()
+                        },
+                    });
+
+                    return settingsJson;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred copying files - '{ex.Message}'.");
+                return null;
+            }
+            return null;
 
         }
 

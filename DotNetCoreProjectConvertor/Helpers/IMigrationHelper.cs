@@ -12,6 +12,8 @@
 
         bool TranslateConfigFiles(string solutionName, string existingProjectPath, string projectName);
 
+        object MigrateAppSettings(string solutionName, string existingProjectPath, string projectName);
+
         bool ReplicateProjectReferences(string solutionName, string existingProjectPath, string projectName);
     }
 }
