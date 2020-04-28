@@ -174,7 +174,7 @@ namespace DotNetCoreProjectConvertor.Helpers
                     {
                         var settings = (appSettingSection.Select(s => s).ToList())
                                                    .Where(s => s.Attribute("name") != null)
-                                                   .Select(s => new KeyValuePair<string, string>(s.Attribute("name")?.Value, s.Attribute("serializeAs").Value == "Xml" ? $"[{string.Join(",",s.Value)}]" : s.Value));
+                                                   .Select(s => new KeyValuePair<string, string>(s.Attribute("name")?.Value, s.Attribute("serializeAs").Value == "Xml" ? $"[{string.Join(",", s.Value)}]" : s.Value));
 
                         keyValues.AddRange(settings);
 
@@ -242,6 +242,51 @@ namespace DotNetCoreProjectConvertor.Helpers
             }
 
             return true;
+        }
+
+        public bool GenerateSettingImplementations(string projectName)
+        {
+            try
+            {
+                var nameSpace = projectName.Substring(0, projectName.LastIndexOf("."));
+                var outputPath = $"{Path.Combine(_outputDirectory, projectName, projectName)}\\Settings";
+                var fileName = projectName.Substring(projectName.IndexOf(".")).Replace(".", string.Empty);
+                var csFilename = $"{outputPath}\\{fileName}Settings.cs";
+                var interfaceFilename = $"{outputPath}\\I{fileName}Settings.cs";
+
+                if (!Directory.Exists(outputPath))
+                    Directory.CreateDirectory(outputPath);
+
+                using (TextWriter tw = new StreamWriter(interfaceFilename))
+                {
+                    tw.WriteLine("namespace " + nameSpace + @".Settings");
+                    tw.WriteLine("{");
+                    tw.WriteLine("    public interface I" + fileName + @"Settings");
+                    tw.WriteLine("    {");
+                    tw.WriteLine("        // TODO: Implement settings from appsettings.json");
+                    tw.WriteLine("    }");
+                    tw.WriteLine("}");
+                }
+
+                using (TextWriter tw = new StreamWriter(csFilename))
+                {
+                    tw.WriteLine("namespace " + nameSpace + @".Settings");
+                    tw.WriteLine("{");
+                    tw.WriteLine("    public class " + fileName + @"Settings : I" + fileName + @"Settings");
+                    tw.WriteLine("    {");
+                    tw.WriteLine("        // TODO: Implement settings from appsettings.json");
+                    tw.WriteLine("    }");
+                    tw.WriteLine("}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred generating settings implementations - '{ex.Message}'.");
+                return false;
+            }
+
+            return true;
+
         }
 
         private static void ResetConfigMechanism()

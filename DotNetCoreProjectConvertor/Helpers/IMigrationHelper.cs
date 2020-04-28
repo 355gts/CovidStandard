@@ -15,5 +15,6 @@
         object MigrateAppSettings(string solutionName, string existingProjectPath, string projectName);
 
         bool ReplicateProjectReferences(string solutionName, string existingProjectPath, string projectName);
+        bool GenerateSettingImplementations(string projectName);
     }
 }

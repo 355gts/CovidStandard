@@ -56,6 +56,7 @@ namespace DotNetCoreProjectConvertor
                 var projectFile = new FileInfo(project);
                 var projectType = GetProjectType(projectFile.Name);
                 var projectNameNoExtension = projectFile.Name.StripExtension();
+                Console.WriteLine($"Migrating {projectFile.Name}.");
 
                 result = migrationHelper.GenerateProject(projectFile.Name.StripExtension(), projectType);
 
@@ -65,10 +66,12 @@ namespace DotNetCoreProjectConvertor
 
                 result = migrationHelper.MigrateFiles(solutionFile.Name.StripExtension(), projectFile.DirectoryName, projectNameNoExtension);
 
+                result = migrationHelper.GenerateSettingImplementations(projectNameNoExtension);
+
                 result = migrationHelper.AddProjectToSolution(solutionFile.Name, Path.Combine(outputDirectory, projectNameNoExtension, projectNameNoExtension, projectFile.Name), projectFile.Name.ToLower().Contains("test") ? "Tests" : null);
             }
 
-            Console.WriteLine("Generated");
+            Console.WriteLine("Done.");
             Console.ReadKey();
         }
 
