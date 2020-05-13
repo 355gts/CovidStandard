@@ -15,16 +15,16 @@ using Topshelf;
 
 namespace Covid.UserService
 {
-    sealed class UserService : ServiceBase, ServiceControl
+    sealed class OldRabbitService : ServiceBase, ServiceControl
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(UserService));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(OldRabbitService));
 
         private readonly CancellationTokenSource _eventListenerCancellationTokenSource = new CancellationTokenSource();
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IList<Task> _tasks = new List<Task>();
         private readonly IContainer _container;
 
-        public UserService()
+        public OldRabbitService()
         {
             //AppDomain.CurrentDomain.SetData("APP_CONFIG_FILE", @"D:\CovidStandard\Covid.UserService\App.Release.config");
 
@@ -49,7 +49,7 @@ namespace Covid.UserService
             using (var scope = _container.BeginLifetimeScope())
             {
                 var userEventListener = scope.Resolve<UserEventListener>();
-                _tasks.Add(userEventListener.Run());
+                _tasks.Add(Task.Factory.StartNew(() => userEventListener.Run(_eventListenerCancellationTokenSource.Token)));
             }
 
             _logger.Info($"Started service '{nameof(UserService)}'");

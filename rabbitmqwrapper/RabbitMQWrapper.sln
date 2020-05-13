@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQWrapper", "RabbitMQWrapper\RabbitMQWrapper.csproj", "{4F444830-BAB0-46C7-B10A-D19D65344709}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQWrapper.Test", "RabbitMQWrapper.Test\RabbitMQWrapper.Test.csproj", "{3654C941-96D4-495B-BD2F-FD358BF26556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitIntegration", "RabbitIntegration\RabbitIntegration.csproj", "{CA6E15BB-510A-4867-9DE0-C7FD5A1D123C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F444830-BAB0-46C7-B10A-D19D65344709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F444830-BAB0-46C7-B10A-D19D65344709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F444830-BAB0-46C7-B10A-D19D65344709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F444830-BAB0-46C7-B10A-D19D65344709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3654C941-96D4-495B-BD2F-FD358BF26556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3654C941-96D4-495B-BD2F-FD358BF26556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3654C941-96D4-495B-BD2F-FD358BF26556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3654C941-96D4-495B-BD2F-FD358BF26556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6E15BB-510A-4867-9DE0-C7FD5A1D123C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6E15BB-510A-4867-9DE0-C7FD5A1D123C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6E15BB-510A-4867-9DE0-C7FD5A1D123C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6E15BB-510A-4867-9DE0-C7FD5A1D123C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

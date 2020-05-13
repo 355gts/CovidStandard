@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{225142BF-B002-4598-8467-EBED1104B490}</ProjectGuid>
+    <ProjectGuid>{156DC318-1E5D-44E1-A28D-35165DC0CC5C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Covid.UserService</RootNamespace>
-    <AssemblyName>Covid.UserService</AssemblyName>
+    <RootNamespace>Covid.OldRabbitService</RootNamespace>
+    <AssemblyName>Covid.OldRabbitService</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -77,6 +77,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Container\ContainerConfiguration.cs" />
     <Compile Include="EventListeners\UserEventListener.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
@@ -84,59 +95,44 @@
     <Compile Include="Processors\UserProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="UserService.cs" />
+    <Compile Include="OldRabbitService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Covid.Common\Covid.Common\log4net.config">
-      <Link>log4net.config</Link>
+    <Content Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App.Release.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <None Include="App.config" />
-    <None Include="App.Release.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Covid.Common.HttpClientHelper\Covid.Common.HttpClientHelper\Covid.Common.HttpClientHelper.csproj">
-      <Project>{C9051DCA-42D9-4C86-A89D-0890F6C18555}</Project>
+    <ProjectReference Include="..\commonutils\CommonUtils\CommonUtils.csproj">
+      <Project>{2adc2c5d-bc8e-4c7a-9ccc-c37bb097930f}</Project>
+      <Name>CommonUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Covid.Common.HttpClientHelper\Covid.Common.HttpClientHelper\Covid.Common.HttpClientHelper.csproj">
+      <Project>{c9051dca-42d9-4c86-a89d-0890f6c18555}</Project>
       <Name>Covid.Common.HttpClientHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Covid.CommonUtils\Covid.CommonUtils\Covid.CommonUtils.csproj">
-      <Project>{B4AFDEF2-B986-40BA-9B48-7108D5310104}</Project>
-      <Name>Covid.CommonUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Covid.Common\Covid.Common\Covid.Common.csproj">
+    <ProjectReference Include="..\Covid.Common\Covid.Common\Covid.Common.csproj">
       <Project>{0e54fcd5-a016-4428-ac6c-0dd0c656f2cd}</Project>
       <Name>Covid.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Covid.Message.Model\Covid.Message.Model\Covid.Message.Model.csproj">
-      <Project>{D56F9496-873A-484F-8F0E-3C0DE13F9C59}</Project>
+    <ProjectReference Include="..\Covid.Message.Model\Covid.Message.Model\Covid.Message.Model.csproj">
+      <Project>{d56f9496-873a-484f-8f0e-3c0de13f9c59}</Project>
       <Name>Covid.Message.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Covid.Rabbit\Covid.Rabbit\Covid.Rabbit.csproj">
-      <Project>{54E06FB0-9E3B-4AA0-BA17-E7CD3A8A28DA}</Project>
-      <Name>Covid.Rabbit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Covid.Service.Common\Covid.Service.Common\Covid.Service.Common.csproj">
-      <Project>{6DA1D4D1-BD8C-4E6D-ABDF-A5A86EC6A62E}</Project>
+    <ProjectReference Include="..\Covid.Service.Common\Covid.Service.Common\Covid.Service.Common.csproj">
+      <Project>{6da1d4d1-bd8c-4e6d-abdf-a5a86ec6a62e}</Project>
       <Name>Covid.Service.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Covid.Web.Model\Covid.Web.Model\Covid.Web.Model.csproj">
-      <Project>{813ECC5A-CBF7-4099-9141-9A5ED5BCFB06}</Project>
+    <ProjectReference Include="..\Covid.Web.Model\Covid.Web.Model\Covid.Web.Model.csproj">
+      <Project>{813ecc5a-cbf7-4099-9141-9a5ed5bcfb06}</Project>
       <Name>Covid.Web.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\rabbitmqwrapper\RabbitMQWrapper\RabbitMQWrapper.csproj">
-      <Project>{4F444830-BAB0-46C7-B10A-D19D65344709}</Project>
+    <ProjectReference Include="..\rabbitmqwrapper\RabbitMQWrapper\RabbitMQWrapper.csproj">
+      <Project>{4f444830-bab0-46c7-b10a-d19d65344709}</Project>
       <Name>RabbitMQWrapper</Name>
     </ProjectReference>
   </ItemGroup>
