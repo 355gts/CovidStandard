@@ -1,6 +1,6 @@
-﻿using Covid.Common.HttpClientHelper.Factories;
+﻿using CommonUtils.Serializer;
+using Covid.Common.HttpClientHelper.Factories;
 using Covid.Common.HttpClientHelper.Model;
-using Covid.CommonUtils.Serializers;
 using log4net;
 using System;
 using System.Net.Http;
@@ -13,12 +13,12 @@ namespace Covid.Common.HttpClientHelper
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(HttpClientHelper));
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IJsonSerializer _serializer;
+        private readonly ISerializer _serializer;
         private readonly HttpClient _httpClient;
 
         public HttpClientHelper(
             IHttpClientFactory httpClientFactory,
-            IJsonSerializer serializer,
+            ISerializer serializer,
             string serviceName)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
@@ -102,7 +102,7 @@ namespace Covid.Common.HttpClientHelper
                 var response = await _httpClient.SendAsync(message).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)
-                    return new AsyncResult<T>(true, _serializer.DeserializeObject<T>(await response.Content.ReadAsStringAsync()));
+                    return new AsyncResult<T>(true, _serializer.Deserialize<T>(await response.Content.ReadAsStringAsync()));
 
                 // hand 404's, 500's, etc
                 return new AsyncResult<T>(false);

@@ -1,8 +1,6 @@
-﻿using Covid.Common.HttpClientHelper.Configuration;
+﻿using Covid.Common.HttpClientHelper.Config;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -10,11 +8,11 @@ namespace Covid.Common.HttpClientHelper.Factories
 {
     public class HttpClientFactory : IHttpClientFactory
     {
-        private readonly IEnumerable<IHttpClientConfiguration> _httpClientConfigurations;
+        private readonly IRestClientConfiguration _httpClientConfigurations;
         private readonly ConcurrentDictionary<string, HttpClient> _httpClients;
         private readonly object _lock = new object();
 
-        public HttpClientFactory(IEnumerable<IHttpClientConfiguration> httpClientConfigurations)
+        public HttpClientFactory(IRestClientConfiguration httpClientConfigurations)
         {
             _httpClientConfigurations = httpClientConfigurations ?? throw new ArgumentNullException(nameof(httpClientConfigurations));
             _httpClients = new ConcurrentDictionary<string, HttpClient>();
@@ -24,7 +22,7 @@ namespace Covid.Common.HttpClientHelper.Factories
         {
             if (!_httpClients.ContainsKey(serviceName))
             {
-                var serviceConfiguration = _httpClientConfigurations.FirstOrDefault(n => n.Name == serviceName);
+                var serviceConfiguration = _httpClientConfigurations.Services[serviceName];
                 if (serviceConfiguration == null)
                 {
                     throw new Exception($"Failed to find service with name '{serviceName}' within end point configurations.");

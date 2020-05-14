@@ -40,7 +40,12 @@ namespace RabbitMQWrapper
         private ConcurrentDictionary<long, IEnumerable<ulong>> publishedMessageTimeline;
         private readonly long timeoutTicks;
 
-        public QueuePublisher(string publisherName, IConnectionHandler connectionHandler, IQueueWrapperConfiguration configuration, IValidationHelper validationHelper, ISerializer serializer)
+        public QueuePublisher(
+            string publisherName,
+            IConnectionHandler connectionHandler,
+            IQueueWrapperConfiguration configuration,
+            IValidationHelper validationHelper,
+            ISerializer serializer)
         {
             if (string.IsNullOrWhiteSpace(publisherName))
                 throw new ArgumentNullException(nameof(publisherName));

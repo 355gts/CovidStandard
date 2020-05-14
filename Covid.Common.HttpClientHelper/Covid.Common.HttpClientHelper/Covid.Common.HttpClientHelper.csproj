@@ -49,16 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Authentication.cs" />
-    <Compile Include="Configuration\HttpClientConfiguration.cs" />
-    <Compile Include="Configuration\IAuthentication.cs" />
-    <Compile Include="Configuration\IHttpClientConfiguration.cs" />
-    <Compile Include="Configuration\IService.cs" />
-    <Compile Include="Configuration\IServiceCollection.cs" />
-    <Compile Include="Configuration\IServiceConfiguration.cs" />
-    <Compile Include="Configuration\Service.cs" />
-    <Compile Include="Configuration\ServiceCollection.cs" />
-    <Compile Include="Configuration\ServiceConfiguration.cs" />
+    <Compile Include="Config\AuthenticationElement.cs" />
+    <Compile Include="Config\IAuthenticationConfiguration.cs" />
+    <Compile Include="Config\IRestClientConfiguration.cs" />
+    <Compile Include="Config\IServiceConfiguration.cs" />
+    <Compile Include="Config\IServiceConfigurations.cs" />
+    <Compile Include="Config\RestClientConfiguration.cs" />
+    <Compile Include="Config\ServiceElement.cs" />
+    <Compile Include="Config\ServicesCollection.cs" />
     <Compile Include="CovidApiHelper.cs" />
     <Compile Include="Factories\HttpClientFactory.cs" />
     <Compile Include="Factories\IHttpClientFactory.cs" />
@@ -74,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\commonutils\CommonUtils\CommonUtils.csproj">
+      <Project>{2ADC2C5D-BC8E-4C7A-9CCC-C37BB097930F}</Project>
+      <Name>CommonUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Covid.CommonUtils\Covid.CommonUtils\Covid.CommonUtils.csproj">
       <Project>{b4afdef2-b986-40ba-9b48-7108d5310104}</Project>
       <Name>Covid.CommonUtils</Name>

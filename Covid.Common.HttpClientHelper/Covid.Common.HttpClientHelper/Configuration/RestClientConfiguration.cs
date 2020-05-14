@@ -7,13 +7,13 @@ namespace Covid.Common.HttpClientHelper.Configuration
 {
     [DataContract]
     [Serializable]
-    public class ServiceConfiguration : ConfigurationSection
+    public class RestClientConfiguration : ConfigurationSection, IRestClientConfiguration
     {
         [ConfigurationProperty("services", IsRequired = false, IsDefaultCollection = true)]
+        [ConfigurationCollection(typeof(ServiceCollection), AddItemName = "add")]
         [JsonProperty("services")]
-        public ServiceCollection Services
-        {
-            get { return (ServiceCollection)base["services"]; }
-        }
+        private ServiceCollection Services => (ServiceCollection)this["services"];
+
+        IServiceConfiguration IRestClientConfiguration.Services => Services;
     }
 }

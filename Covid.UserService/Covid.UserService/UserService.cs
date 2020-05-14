@@ -1,13 +1,9 @@
 ﻿using Autofac;
-using Covid.Common.HttpClientHelper.Configuration;
 using Covid.Service.Common;
 using Covid.UserService.Container;
 using Covid.UserService.EventListeners;
 using log4net;
-using Newtonsoft.Json;
-using RabbitMQWrapper.Configuration;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,15 +25,15 @@ namespace Covid.UserService
             //AppDomain.CurrentDomain.SetData("APP_CONFIG_FILE", @"D:\CovidStandard\Covid.UserService\App.Release.config");
 
             //var queueConfig = ConfigurationManager.GetSection("queueConfiguration") as QueueConfiguration;
-            var queueConfig = ConfigurationManager.GetSection("queueWrapper") as QueueWrapperConfiguration;
+            //var queueConfig = ConfigurationManager.GetSection("queueWrapper") as QueueWrapperConfiguration;
 
-            string json = JsonConvert.SerializeObject(new { queueConfiguration = queueConfig });
+            //string json = JsonConvert.SerializeObject(new { queueConfiguration = queueConfig });
 
-            var serviceConfig = ConfigurationManager.GetSection("restClients") as ServiceConfiguration;
+            //var serviceConfig = ConfigurationManager.GetSection("restClients") as RestClientConfiguration;
 
-            string serviceConfigJson = JsonConvert.SerializeObject(new { services = serviceConfig.Services }, new JsonSerializerSettings() { Formatting = Newtonsoft.Json.Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
+            //string serviceConfigJson = JsonConvert.SerializeObject(new { services = serviceConfig.Services }, new JsonSerializerSettings() { Formatting = Newtonsoft.Json.Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
 
-            ServiceConfiguration serv = new ServiceConfiguration();
+            //RestClientConfiguration serv = new RestClientConfiguration();
 
             _container = ContainerConfiguration.Configure(Configuration, _eventListenerCancellationTokenSource, _cancellationTokenSource);
         }

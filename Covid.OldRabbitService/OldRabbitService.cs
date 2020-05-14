@@ -1,13 +1,10 @@
 ﻿using Autofac;
-using Covid.Common.HttpClientHelper.Configuration;
+using CommonUtils.Logging;
 using Covid.Service.Common;
 using Covid.UserService.Container;
 using Covid.UserService.EventListeners;
 using log4net;
-using Newtonsoft.Json;
-using RabbitMQWrapper.Configuration;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,20 +23,10 @@ namespace Covid.UserService
 
         public OldRabbitService()
         {
-            //AppDomain.CurrentDomain.SetData("APP_CONFIG_FILE", @"D:\CovidStandard\Covid.UserService\App.Release.config");
+            // retrieve the log4net configuration and configure logging
+            LogConfiguration.Initialize();
 
-            //var queueConfig = ConfigurationManager.GetSection("queueConfiguration") as QueueConfiguration;
-            var queueConfig = ConfigurationManager.GetSection("queueWrapper") as QueueWrapperConfiguration;
-
-            string json = JsonConvert.SerializeObject(new { queueConfiguration = queueConfig });
-
-            var serviceConfig = ConfigurationManager.GetSection("restClients") as ServiceConfiguration;
-
-            string serviceConfigJson = JsonConvert.SerializeObject(new { services = serviceConfig.Services }, new JsonSerializerSettings() { Formatting = Newtonsoft.Json.Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
-
-            ServiceConfiguration serv = new ServiceConfiguration();
-
-            _container = ContainerConfiguration.Configure(Configuration, _eventListenerCancellationTokenSource, _cancellationTokenSource);
+            _container = ContainerConfiguration.Configure(_eventListenerCancellationTokenSource, _cancellationTokenSource);
         }
 
         public bool Start(HostControl hostControl)

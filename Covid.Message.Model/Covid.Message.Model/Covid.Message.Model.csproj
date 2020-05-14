@@ -50,9 +50,9 @@
     <Compile Include="Users\User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Covid.Rabbit\Covid.Rabbit\Covid.Rabbit.csproj">
-      <Project>{54E06FB0-9E3B-4AA0-BA17-E7CD3A8A28DA}</Project>
-      <Name>Covid.Rabbit</Name>
+    <ProjectReference Include="..\..\rabbitmqwrapper\RabbitMQWrapper\RabbitMQWrapper.csproj">
+      <Project>{4f444830-bab0-46c7-b10a-d19d65344709}</Project>
+      <Name>RabbitMQWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Covid.Common.Extensions;
 using Covid.Common.HttpClientHelper;
-using Covid.Common.HttpClientHelper.Configuration;
+using Covid.Common.HttpClientHelper.Config;
 using Covid.Common.HttpClientHelper.Factories;
 using Covid.Common.Mapper;
 using Covid.CommonUtils.Serializers;
@@ -14,7 +14,6 @@ using Covid.Rabbit.Factories;
 using Covid.UserService.EventListeners;
 using Covid.UserService.Processors;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Reflection;
 using System.Threading;
@@ -44,7 +43,7 @@ namespace Covid.UserService.Container
 
             // register configuration sections
             containerBuilder.RegisterConfigurationSection<IQueueConfiguration, QueueConfiguration>(configuration, "queueConfiguration");
-            containerBuilder.RegisterConfigurationSection<IEnumerable<IHttpClientConfiguration>, List<HttpClientConfiguration>>(configuration, "services");
+            containerBuilder.RegisterConfigurationSection<IRestClientConfiguration, RestClientConfiguration>(configuration, "services");
 
             // load the assembly containing the mappers
             var executingAssembly = Assembly.Load("Covid.UserService");

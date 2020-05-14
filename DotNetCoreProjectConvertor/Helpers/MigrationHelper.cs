@@ -1,4 +1,4 @@
-﻿using Covid.Common.HttpClientHelper.Configuration;
+﻿using Covid.Common.HttpClientHelper.Config;
 using Covid.Rabbit.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -102,14 +102,14 @@ namespace DotNetCoreProjectConvertor.Helpers
                     ConfigurationManager.RefreshSection("queueConfiguration");
                     ConfigurationManager.RefreshSection("restClients");
                     var queueConfig = ConfigurationManager.GetSection("queueConfiguration") as QueueConfiguration;
-                    var serviceConfig = ConfigurationManager.GetSection("restClients") as ServiceConfiguration;
+                    var serviceConfig = ConfigurationManager.GetSection("restClients") as RestClientConfiguration;
 
                     if (queueConfig != null)
                     {
                         string appSettingsJson = JsonConvert.SerializeObject(new
                         {
                             queueConfiguration = queueConfig,
-                            services = serviceConfig.Services,
+                            services = serviceConfig,
                             appSettings = MigrateAppSettings(solutionName, existingProjectPath, projectName),
                         }, new JsonSerializerSettings()
                         {
